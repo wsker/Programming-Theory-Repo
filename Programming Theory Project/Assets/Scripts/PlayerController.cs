@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
                 // if player fires: create projectile
                 GameObject inst = Instantiate(projectilePrefab, transform.position, projectilePrefab.transform.rotation);
                 ProjectileMovement projectile = inst.GetComponent<ProjectileMovement>();
-                projectile.Initialize(ProjectileMovement.Source.Player, new Vector3(xFire, 0, zFire));
+                projectile.Initialize(ProjectileMovement.Source.Player, new Vector3(xFire, 0, zFire), damage);
 
                 attackPause = attackSpeed;  // initiate pause between attacks
             }
@@ -82,5 +82,19 @@ public class PlayerController : MonoBehaviour
         float xMove = (Input.GetKey(keyMoveRight) ? 1 : 0) - (Input.GetKey(keyMoveLeft) ? 1 : 0);
         float zMove = (Input.GetKey(keyMoveUp) ? 1 : 0) - (Input.GetKey(keyMoveDown) ? 1 : 0);
         rbPlayer.velocity = new Vector3(xMove * movementSpeed, 0, zMove * movementSpeed);
+    }
+
+    public void Hit(int damage)
+    {
+        health -= damage;
+        if (health < 0)
+        {
+            PlayerDie();
+        }
+    }
+
+    protected void PlayerDie()
+    {
+        Destroy(gameObject);
     }
 }
