@@ -95,10 +95,13 @@ public class EnemyMovement : MonoBehaviour
     /// </summary>
     virtual protected void PerformAttack()
     {
-        Vector3 attackDirection = Vector3.Normalize(player.transform.position - transform.position);
-        GameObject inst = Instantiate(projectilePrefab, transform.position, projectilePrefab.transform.rotation);
-        ProjectileMovement projectile = inst.GetComponent<ProjectileMovement>();
-        projectile.Initialize(ProjectileMovement.Source.Enemy, attackDirection, projectileDamage);
+        if(player != null)
+        {
+            Vector3 attackDirection = Vector3.Normalize(player.transform.position - transform.position);
+            GameObject inst = Instantiate(projectilePrefab, transform.position, projectilePrefab.transform.rotation);
+            ProjectileMovement projectile = inst.GetComponent<ProjectileMovement>();
+            projectile.Initialize(ProjectileMovement.Source.Enemy, attackDirection, projectileDamage);
+        }
 
         attackPause = attackSpeed;
     }
