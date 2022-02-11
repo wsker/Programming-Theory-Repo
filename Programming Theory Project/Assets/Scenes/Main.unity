@@ -123,6 +123,51 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &2271353
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2271354}
+  - component: {fileID: 2271355}
+  m_Layer: 0
+  m_Name: ProjectileSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2271354
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2271353}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.9582717, y: 1.5582862, z: -0.26580906}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2271355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2271353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43851e1908bc6c440a74b231be90fba2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab:
+  - {fileID: 2363099667989755443, guid: f158cb40eb50c1842b4ced4ecc2f182e, type: 3}
 --- !u!1 &155247031
 GameObject:
   m_ObjectHideFlags: 0
@@ -961,11 +1006,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dce32ecbd84c04b49a09c5dd6511eb78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 2363099667989755443, guid: f158cb40eb50c1842b4ced4ecc2f182e, type: 3}
   health: 6
   movementSpeed: 5
   damage: 1
   attackSpeed: 0.75
+  shotType: 1
 --- !u!1 &1946022940
 GameObject:
   m_ObjectHideFlags: 0

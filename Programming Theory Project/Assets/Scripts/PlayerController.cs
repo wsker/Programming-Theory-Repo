@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
 {
     // Component references
     private Rigidbody rbPlayer;
-    public GameObject projectilePrefab;
+    private ProjectileSpawner projectileSpawner;
 
     // Player attributes
     /// <summary>
@@ -32,7 +32,8 @@ public class PlayerController : MonoBehaviour
     /// Internal variable to track the pause between attacks.
     /// </summary>
     private float attackPause = 0;
-    
+    [SerializeField] private ProjectileSpawner.ShotType shotType = ProjectileSpawner.ShotType.Single;
+
     // Input definitions
     private readonly KeyCode keyMoveUp = KeyCode.W;
     private readonly KeyCode keyMoveLeft = KeyCode.A;
@@ -48,6 +49,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rbPlayer = GetComponent<Rigidbody>();
+        projectileSpawner = GameObject.Find("ProjectileSpawner").GetComponent<ProjectileSpawner>();
     }
 
     // Update is called once per frame
@@ -67,9 +69,7 @@ public class PlayerController : MonoBehaviour
             if (xFire != 0 || zFire != 0)
             {
                 // if player fires: create projectile
-                GameObject inst = Instantiate(projectilePrefab, transform.position, projectilePrefab.transform.rotation);
-                ProjectileMovement projectile = inst.GetComponent<ProjectileMovement>();
-                projectile.Initialize(ProjectileMovement.Source.Player, new Vector3(xFire, 0, zFire), damage);
+                projectileSpawner.SpawnProjectile(shotType, transform.position, new Vector3(xFire, 0, zFire), ProjectileMovement.Source.Player, damage);
 
                 attackPause = attackSpeed;  // initiate pause between attacks
             }

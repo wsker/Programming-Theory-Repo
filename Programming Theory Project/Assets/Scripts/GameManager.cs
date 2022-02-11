@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private GameObject enemyContainer;
 
-    private int wave = 0;
+    public int Wave { get; private set; }
 
     // Start is called before the first frame update
     void Start()
@@ -28,14 +28,14 @@ public class GameManager : MonoBehaviour
     {
         if(enemyContainer.transform.childCount == 0)
         {
-            SpawnNextWave();
+           SpawnNextWave();
         }
     }
 
     protected void SpawnNextWave()
     {
-        wave++;
-        for(int i = 0; i < wave; i++)
+        Wave++;
+        for(int i = 0; i < Wave; i++)
         {
             enemySpawner.SpawnRandomEnemy();
         }

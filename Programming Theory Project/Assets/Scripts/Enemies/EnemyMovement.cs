@@ -7,7 +7,7 @@ public class EnemyMovement : MonoBehaviour
     // component references
     private Rigidbody rbEnemy;
     private GameObject player;
-    public GameObject projectilePrefab;
+    private ProjectileSpawner projectileSpawner;
 
     // Attributes
     [SerializeField] private string enemyName;
@@ -16,6 +16,7 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private int projectileDamage = 1;
     [SerializeField] private float movementSpeed = 2.0f;
     [SerializeField] private float attackSpeed;
+    [SerializeField] private ProjectileSpawner.ShotType shotType = ProjectileSpawner.ShotType.Single;
 
     // internal variables
     private float attackPause = 0;
@@ -29,6 +30,7 @@ public class EnemyMovement : MonoBehaviour
         InitializeEnemy();
         rbEnemy = GetComponent<Rigidbody>();
         player = GameObject.Find("Player");
+        projectileSpawner = GameObject.Find("ProjectileSpawner").GetComponent<ProjectileSpawner>();
     }
 
     void Update()
@@ -98,9 +100,7 @@ public class EnemyMovement : MonoBehaviour
         if(player != null)
         {
             Vector3 attackDirection = Vector3.Normalize(player.transform.position - transform.position);
-            GameObject inst = Instantiate(projectilePrefab, transform.position, projectilePrefab.transform.rotation);
-            ProjectileMovement projectile = inst.GetComponent<ProjectileMovement>();
-            projectile.Initialize(ProjectileMovement.Source.Enemy, attackDirection, projectileDamage);
+            projectileSpawner.SpawnProjectile(shotType, transform.position, attackDirection, ProjectileMovement.Source.Enemy, projectileDamage);
         }
 
         attackPause = attackSpeed;
