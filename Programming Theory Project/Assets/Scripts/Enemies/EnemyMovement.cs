@@ -6,22 +6,39 @@ public class EnemyMovement : MonoBehaviour
 {
     // component references
     private Rigidbody rbEnemy;
-    private GameObject player;
-    private ProjectileSpawner projectileSpawner;
+    protected GameObject player;
+    protected ProjectileSpawner projectileSpawner;
 
     // Attributes
-    [SerializeField] private string enemyName;
-    [SerializeField] private int health = 3;
-    [SerializeField] private int meleeDamage = 1;
-    [SerializeField] private int projectileDamage = 1;
-    [SerializeField] private float movementSpeed = 2.0f;
-    [SerializeField] private float attackSpeed;
-    [SerializeField] private ProjectileSpawner.ShotType shotType = ProjectileSpawner.ShotType.Single;
+    [SerializeField] protected string enemyName;
+    [SerializeField] protected int health = 3;
+    [SerializeField] protected int meleeDamage = 1;
+    [SerializeField] protected int projectileDamage = 1;
+    [SerializeField] protected float movementSpeed = 2.0f;
+    [SerializeField] protected float attackSpeed;
+    [SerializeField] protected ProjectileSpawner.ShotType shotType = ProjectileSpawner.ShotType.Single;
 
     // internal variables
-    private float attackPause = 0;
-    private float xMove = 0;
-    private float zMove = 0;
+    /// <summary>
+    /// How long until the next attack.
+    /// </summary>
+    protected float attackPause = 0;
+    /// <summary>
+    /// Current movement on the x axis.
+    /// </summary>
+    protected float xMove = 0;
+    /// <summary>
+    /// Current movement on the z axis.
+    /// </summary>
+    protected float zMove = 0;
+    /// <summary>
+    /// How long the enemy bounces away from the player (after a melee hit)
+    /// </summary>
+    protected float bounceAwayDuration = 0.3f;
+    /// <summary>
+    /// Running counter for the bounce.
+    /// </summary>
+    protected float bounceAwayFromPlayer = 0;
 
     // Default behaviour code for all enemies
 
@@ -48,11 +65,27 @@ public class EnemyMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // enemy movement
-        SetMovement();
+        if (bounceAwayFromPlayer > 0 && player != null)
+        {
+            // if the enemy is currently bouncing away from the player
+            Vector3 direction = Vector3.Normalize(player.transform.position - transform.position);
+            xMove = -direction.x;
+            zMove = -direction.z;
+            bounceAwayFromPlayer -= Time.fixedDeltaTime;
+        }
+        else
+        {
+            // determine enemy movement
+            SetMovement();
+        }
+        // perform movement
         rbEnemy.velocity = new Vector3(xMove * movementSpeed, 0, zMove * movementSpeed);
     }
 
+    /// <summary>
+    /// Hit the enemy with the specified damage.
+    /// </summary>
+    /// <param name="damage"></param>
     public void Hit(int damage)
     {
         health -= damage;
@@ -62,6 +95,9 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Perform all actions upond enemy death.
+    /// </summary>
     protected void EnemyDie()
     {
         Destroy(gameObject);
@@ -104,5 +140,15 @@ public class EnemyMovement : MonoBehaviour
         }
 
         attackPause = attackSpeed;
+    }
+
+    virtual protected void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Player"))
+        {
+            // perform melee hit on player and bounce away from him
+            collision.gameObject.GetComponent<PlayerController>().Hit(meleeDamage);
+            bounceAwayFromPlayer = bounceAwayDuration;
+        }
     }
 }

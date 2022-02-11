@@ -166,8 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43851e1908bc6c440a74b231be90fba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab:
-  - {fileID: 2363099667989755443, guid: f158cb40eb50c1842b4ced4ecc2f182e, type: 3}
+  projectilePrefab: {fileID: 2363099667989755443, guid: f158cb40eb50c1842b4ced4ecc2f182e, type: 3}
 --- !u!1 &155247031
 GameObject:
   m_ObjectHideFlags: 0
@@ -199,7 +198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyList:
-  - {fileID: 8212272099244526649, guid: 87ed7b49c9ea2344a82d3f89b437bb50, type: 3}
+  - {fileID: 8212272099244526649, guid: cd91d17f48e22e94a80d0aceeebefe43, type: 3}
 --- !u!114 &155247033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1010,7 +1009,7 @@ MonoBehaviour:
   movementSpeed: 5
   damage: 1
   attackSpeed: 0.75
-  shotType: 1
+  shotType: 2
 --- !u!1 &1946022940
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private GameObject enemyContainer;
 
+    private bool pauseSpawning = false;
+
     public int Wave { get; private set; }
 
     // Start is called before the first frame update
@@ -20,7 +22,7 @@ public class GameManager : MonoBehaviour
     {
         enemyContainer = GameObject.Find("Enemies");
         enemySpawner = GetComponent<EnemySpawner>();
-        SpawnNextWave();
+        if(!pauseSpawning) SpawnNextWave();
     }
 
     // Update is called once per frame
@@ -28,7 +30,7 @@ public class GameManager : MonoBehaviour
     {
         if(enemyContainer.transform.childCount == 0)
         {
-           SpawnNextWave();
+            if (!pauseSpawning) SpawnNextWave();
         }
     }
 
