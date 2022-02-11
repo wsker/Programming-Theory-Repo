@@ -198,7 +198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyList:
-  - {fileID: 8212272099244526649, guid: cd91d17f48e22e94a80d0aceeebefe43, type: 3}
+  - {fileID: 8212272099244526649, guid: de3d378ba9b2c4a41a7e8b7c464d3bad, type: 3}
 --- !u!114 &155247033
 MonoBehaviour:
   m_ObjectHideFlags: 0
