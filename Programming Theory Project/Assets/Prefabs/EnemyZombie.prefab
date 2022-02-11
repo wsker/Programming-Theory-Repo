@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 8212272099244526629}
   - component: {fileID: 8212272099244526628}
   - component: {fileID: 8212272099244526650}
-  - component: {fileID: 3247863286733808374}
+  - component: {fileID: -1922517506680199543}
   m_Layer: 0
-  m_Name: EnemyRager
+  m_Name: EnemyZombie
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -113,7 +113,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
---- !u!114 &3247863286733808374
+--- !u!114 &-1922517506680199543
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -122,16 +122,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 8212272099244526649}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93bc0d9fbc04b9c488afa2a511d0f804, type: 3}
+  m_Script: {fileID: 11500000, guid: 3cedd7a7c4f4f7641a6bd750f703c5c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyName: Rager
+  enemyName: Zombie
   health: 3
   meleeDamage: 1
   projectileDamage: 1
   movementSpeed: 2
-  attackSpeed: 1.2
-  shotType: 2
-  movementDuration: 1
-  movementWaitDuration: 1
-  speedBoost: 5
+  attackSpeed: 1
+  shotType: 1

@@ -109,12 +109,6 @@ public class EnemyMovement : MonoBehaviour
     /// </summary>
     virtual protected void InitializeEnemy()
     {
-        enemyName = "Enemy";
-        health = 3;
-        meleeDamage = 1;
-        projectileDamage = 1;
-        movementSpeed = 2.0f;
-        attackSpeed = 1.0f;
         attackPause = attackSpeed;
     }
 
