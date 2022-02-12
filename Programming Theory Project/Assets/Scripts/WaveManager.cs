@@ -5,19 +5,34 @@ using System.IO;
 
 public class WaveManager : MonoBehaviour
 {
+    /// <summary>
+    /// Class containing all persistent wave data.
+    /// </summary>
     [System.Serializable]
     public class Waves
     {
+        /// <summary>
+        /// The highest reached wave, ever.
+        /// </summary>
         public int highest;
+        /// <summary>
+        /// The currently selected start wave.
+        /// </summary>
         public int selected;
-        public int current;
     }
 
+    /// <summary>
+    /// Singleton instance of the wave manager.
+    /// </summary>
     public static WaveManager Instance;
+    /// <summary>
+    /// Persistent wave data.
+    /// </summary>
     public Waves waves;
 
     private void Awake()
     {
+        // ensure Singleton
         if (Instance == null)
         {
             Instance = this;
@@ -30,18 +45,23 @@ public class WaveManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Save the persistent wave data to a file.
+    /// </summary>
     public void SaveWaveData()
     {
         if (waves != null)
         {
-            // if there is a current highscore: save it to file
+            // if there is wave data: save it to file
             string path = Application.persistentDataPath + "/waves.json";
             string json = JsonUtility.ToJson(waves);
             File.WriteAllText(path, json);
-            Debug.Log("saved to " + path);
         }
     }
 
+    /// <summary>
+    /// Load the persistent wave data from a file.
+    /// </summary>
     public void LoadWaveData()
     {
         string path = Application.persistentDataPath + "/waves.json";
@@ -54,10 +74,13 @@ public class WaveManager : MonoBehaviour
         else
         {
             // if there is no file: instantiate empty
-            waves = new Waves() { highest = 1, selected = 1, current = 1 };
+            waves = new Waves() { highest = 1, selected = 1 };
         }
     }
 
+    /// <summary>
+    /// Delete the save file from disk.
+    /// </summary>
     public void DeleteWaveData()
     {
         string path = Application.persistentDataPath + "/waves.json";
@@ -67,16 +90,23 @@ public class WaveManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Sets the currently selected wave.
+    /// </summary>
+    /// <param name="wave">The selected wave.</param>
     public void SelectWave(int wave)
     {
-        Debug.Log("selected wave " + wave);
         waves.selected = wave;
         SaveWaveData();
     }
 
+    /// <summary>
+    /// Report the currently reached wave. Updates persistent data if a new
+    /// highest wave was reached.
+    /// </summary>
+    /// <param name="wave">The reached wave.</param>
     public void ReportReachedWave(int wave)
     {
-        waves.current = wave;
         if (wave > waves.highest)
         {
             waves.highest = wave;

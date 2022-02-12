@@ -10,6 +10,9 @@ using UnityEditor;
 
 public class UITitleScreen : MonoBehaviour
 {
+    /// <summary>
+    /// Reference to the wave selection dropdown.
+    /// </summary>
     [SerializeField] private GameObject waveSelect;
 
     // Start is called before the first frame update
@@ -18,15 +21,19 @@ public class UITitleScreen : MonoBehaviour
         UpdateWaveDropdown();
     }
 
+    /// <summary>
+    /// Updates the wave selection dropdown to contain all previously reached waves.
+    /// </summary>
     private void UpdateWaveDropdown()
     {
+        // get dropdown component
         TMP_Dropdown dropdown = waveSelect?.GetComponent<TMP_Dropdown>();
         if(dropdown == null)
         {
             Debug.Log("wave select dropdown not assigned");
             return;
         }
-
+        // update options in dropdown
         dropdown.ClearOptions();
         List<TMP_Dropdown.OptionData> options = new List<TMP_Dropdown.OptionData>();
         int maxWave = WaveManager.Instance?.waves.highest ?? 1;
@@ -37,11 +44,17 @@ public class UITitleScreen : MonoBehaviour
         dropdown.AddOptions(options);
     }
 
+    /// <summary>
+    /// Starts the game.
+    /// </summary>
     public void StartGame()
     {
         SceneManager.LoadScene(1);
     }
 
+    /// <summary>
+    /// Ends the game.
+    /// </summary>
     public void QuitGame()
     {
 #if UNITY_EDITOR
@@ -51,11 +64,18 @@ public class UITitleScreen : MonoBehaviour
 #endif
     }
 
-    public void WaveSelected(int newValue)
+    /// <summary>
+    /// Called when a wave is selected in the according dropdown.
+    /// </summary>
+    /// <param name="newValue">Index of the selected option (starting at 0).</param>
+    public void OnWaveSelected(int newValue)
     {
         WaveManager.Instance?.SelectWave(newValue + 1);
     }
 
+    /// <summary>
+    /// Deletes the save file (and therefore progress).
+    /// </summary>
     public void DeleteSave()
     {
         WaveManager.Instance?.DeleteWaveData();

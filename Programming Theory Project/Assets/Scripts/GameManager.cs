@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviour
 
     private bool pauseSpawning = false;
 
+    /// <summary>
+    /// The current wave.
+    /// </summary>
     public int Wave { get; private set; }
 
     // Start is called before the first frame update
@@ -31,10 +34,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(enemyContainer.transform.childCount == 0)
+        if(!pauseSpawning && enemyContainer.transform.childCount == 0)
         {
             Wave++;
-            if (!pauseSpawning) SpawnWave(Wave);
+            SpawnWave(Wave);
         }
     }
 
