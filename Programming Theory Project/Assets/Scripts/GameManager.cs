@@ -20,9 +20,12 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // get starting wave
+        Wave = WaveManager.Instance?.waves.selected ?? 1;
+        
         enemyContainer = GameObject.Find("Enemies");
         enemySpawner = GetComponent<EnemySpawner>();
-        if(!pauseSpawning) SpawnNextWave();
+        if(!pauseSpawning) SpawnWave(Wave);
     }
 
     // Update is called once per frame
@@ -30,16 +33,18 @@ public class GameManager : MonoBehaviour
     {
         if(enemyContainer.transform.childCount == 0)
         {
-            if (!pauseSpawning) SpawnNextWave();
+            Wave++;
+            if (!pauseSpawning) SpawnWave(Wave);
         }
     }
 
-    protected void SpawnNextWave()
+    protected void SpawnWave(int wave)
     {
-        Wave++;
-        for(int i = 0; i < Wave; i++)
+        for(int i = 0; i < wave; i++)
         {
             enemySpawner.SpawnRandomEnemy();
         }
+        WaveManager.Instance?.ReportReachedWave(wave);
+        Debug.Log("Spawned wave " + wave);
     }
 }

@@ -69,6 +69,7 @@ public class WaveManager : MonoBehaviour
 
     public void SelectWave(int wave)
     {
+        Debug.Log("selected wave " + wave);
         waves.selected = wave;
         SaveWaveData();
     }
