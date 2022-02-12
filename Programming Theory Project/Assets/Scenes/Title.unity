@@ -848,15 +848,13 @@ MonoBehaviour:
     m_Options:
     - m_Text: Wave 1
       m_Image: {fileID: 0}
-    - m_Text: Wave 2
-      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 902109838}
         m_TargetAssemblyTypeName: UITitleScreen, Assembly-CSharp
-        m_MethodName: WaveSelected
-        m_Mode: 3
+        m_MethodName: OnWaveSelected
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1505,7 +1503,6 @@ MonoBehaviour:
   waves:
     highest: 0
     selected: 0
-    current: 0
 --- !u!4 &1049947411
 Transform:
   m_ObjectHideFlags: 0

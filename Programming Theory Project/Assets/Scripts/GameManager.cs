@@ -13,6 +13,9 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private GameObject enemyContainer;
 
+    private UIMainGame uiMainGame;
+    private float waveIntroDuration = 1.0f;
+
     private bool pauseSpawning = false;
 
     /// <summary>
@@ -23,12 +26,13 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        uiMainGame = GameObject.Find("Canvas").GetComponent<UIMainGame>();
         // get starting wave
         Wave = WaveManager.Instance?.waves.selected ?? 1;
         
         enemyContainer = GameObject.Find("Enemies");
         enemySpawner = GetComponent<EnemySpawner>();
-        if(!pauseSpawning) SpawnWave(Wave);
+        StartWave();
     }
 
     // Update is called once per frame
@@ -37,8 +41,23 @@ public class GameManager : MonoBehaviour
         if(!pauseSpawning && enemyContainer.transform.childCount == 0)
         {
             Wave++;
-            SpawnWave(Wave);
+            StartWave();
         }
+    }
+
+    public void StartWave()
+    {
+        pauseSpawning = true;
+        StartCoroutine(WaveIntro(Wave));
+    }
+
+    IEnumerator WaveIntro(int wave)
+    {
+        uiMainGame.StartWaveIntro(wave);
+        yield return new WaitForSeconds(waveIntroDuration);
+        uiMainGame.StopWaveIntro();
+        SpawnWave(wave);
+        pauseSpawning = false;
     }
 
     protected void SpawnWave(int wave)
