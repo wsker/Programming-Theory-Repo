@@ -18,6 +18,8 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] protected float attackSpeed;
     [SerializeField] protected ProjectileSpawner.ShotType shotType = ProjectileSpawner.ShotType.Single;
 
+    public AudioClip destroySound;
+
     // internal variables
     /// <summary>
     /// How long until the next attack.
@@ -100,6 +102,7 @@ public class EnemyMovement : MonoBehaviour
     /// </summary>
     protected void EnemyDie()
     {
+        player.GetComponent<PlayerController>().audioSource.PlayOneShot(destroySound);
         Destroy(gameObject);
     }
 

@@ -132,6 +132,7 @@ MonoBehaviour:
   movementSpeed: 2
   attackSpeed: 1.2
   shotType: 2
+  destroySound: {fileID: 8300000, guid: cd8903bcb25678049ab6f0a884f11e89, type: 3}
   movementDuration: 1
   movementWaitDuration: 1
   speedBoost: 5

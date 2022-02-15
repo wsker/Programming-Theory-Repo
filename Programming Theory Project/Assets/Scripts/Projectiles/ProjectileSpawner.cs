@@ -19,6 +19,14 @@ public class ProjectileSpawner : MonoBehaviour
     /// </summary>
     public GameObject projectilePrefab;
 
+    public AudioClip shootSound;
+    private AudioSource audioPlayer;
+
+    private void Start()
+    {
+        audioPlayer = GetComponent<AudioSource>();
+    }
+
     /// <summary>
     /// Spawns projectiles of the provided type.
     /// </summary>
@@ -45,6 +53,8 @@ public class ProjectileSpawner : MonoBehaviour
             InstantiateProjectile(projectilePrefab, position, new Vector3(direction.z, direction.y, -direction.x), source, damage);
             InstantiateProjectile(projectilePrefab, position, new Vector3(-direction.z, direction.y, direction.x), source, damage);
         }
+
+        audioPlayer.PlayOneShot(shootSound);
     }
 
     /// <summary>

@@ -32,6 +32,10 @@ public class GameManager : MonoBehaviour
     private bool pauseSpawning = false;
     private bool isGameRunning = false;
 
+    private AudioSource oneShotPlayer;
+    private float oneShotPlayerVolume = 0.15f;
+    public AudioClip waveDefeatedClip;
+
     /// <summary>
     /// The current wave.
     /// </summary>
@@ -41,6 +45,11 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         uiMainGame = GameObject.Find("Canvas").GetComponent<UIMainGame>();
+        oneShotPlayer = gameObject.AddComponent<AudioSource>();
+        oneShotPlayer.loop = false;
+        oneShotPlayer.playOnAwake = false;
+        oneShotPlayer.volume = oneShotPlayerVolume;
+
         // get starting wave
         Wave = WaveManager.Instance?.waves.selected ?? 1;
 
@@ -68,6 +77,7 @@ public class GameManager : MonoBehaviour
         {
             Wave++;
             StartWave();
+            oneShotPlayer.PlayOneShot(waveDefeatedClip);
         }
     }
 

@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rbPlayer;
     private ProjectileSpawner projectileSpawner;
     private UIMainGame uiMainGame;
+    public AudioSource audioSource;
 
     // Player attributes
     /// <summary>
@@ -39,6 +40,9 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     [SerializeField] private PowerUp powerUp = null;
 
+    public AudioClip powerUpPickUpSound;
+    public AudioClip gettingHitSound;
+
     // Input definitions
     private readonly KeyCode keyMoveUp = KeyCode.W;
     private readonly KeyCode keyMoveLeft = KeyCode.A;
@@ -54,6 +58,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rbPlayer = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
         projectileSpawner = GameObject.Find("ProjectileSpawner").GetComponent<ProjectileSpawner>();
         uiMainGame = GameObject.Find("Canvas").GetComponent<UIMainGame>();
         uiMainGame.UpdateHealth(health);
@@ -98,6 +103,7 @@ public class PlayerController : MonoBehaviour
     public void Hit(int damage)
     {
         health -= damage;
+        audioSource.PlayOneShot(gettingHitSound);
         uiMainGame.UpdateHealth(health);
         if (health <= 0)
         {
@@ -119,5 +125,6 @@ public class PlayerController : MonoBehaviour
     {
         this.powerUp = powerUp;
         health += powerUp.Health;
+        audioSource.PlayOneShot(powerUpPickUpSound);
     }
 }
