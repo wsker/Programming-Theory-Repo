@@ -18,13 +18,17 @@ public class UIMainGame : MonoBehaviour
     private TextMeshProUGUI healthText;
     private TextMeshProUGUI timerText;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         // get components
         waveIntroText = waveIntro.GetComponent<TextMeshProUGUI>();
         healthText = gameplay.transform.Find("Health Text").GetComponent<TextMeshProUGUI>();
         timerText = gameplay.transform.Find("Timer Text").GetComponent<TextMeshProUGUI>();
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
         // initialize visibility
         gameOver.SetActive(false);
         gameplay.SetActive(true);
