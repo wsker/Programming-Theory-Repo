@@ -33,6 +33,10 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private float attackPause = 0;
     [SerializeField] private ProjectileSpawner.ShotType shotType = ProjectileSpawner.ShotType.Single;
+    /// <summary>
+    /// The currently picked up power up.
+    /// </summary>
+    [SerializeField] private PowerUp powerUp = null;
 
     // Input definitions
     private readonly KeyCode keyMoveUp = KeyCode.W;
@@ -68,10 +72,14 @@ public class PlayerController : MonoBehaviour
 
             if (xFire != 0 || zFire != 0)
             {
-                // if player fires: create projectile
-                projectileSpawner.SpawnProjectile(shotType, transform.position, new Vector3(xFire, 0, zFire), ProjectileMovement.Source.Player, damage);
-
-                attackPause = attackSpeed;  // initiate pause between attacks
+                // if player fires:
+                // apply power up to projectile
+                ProjectileSpawner.ShotType st = (powerUp == null) ? shotType : powerUp.ShotType;
+                int d = (damage + powerUp?.Damage ?? 0);
+                float ap = (attackSpeed - powerUp?.AttackSpeed ?? 0);
+                // create projectile
+                projectileSpawner.SpawnProjectile(st, transform.position, new Vector3(xFire, 0, zFire), ProjectileMovement.Source.Player, d);
+                attackPause = ap;  // initiate pause between attacks
             }
         }
     }
@@ -96,5 +104,16 @@ public class PlayerController : MonoBehaviour
     protected void PlayerDie()
     {
         Destroy(gameObject);
+    }
+
+    /// <summary>
+    /// Attaches a PowerUp to the player. If the player already has a power up,
+    /// it will be replaced.
+    /// </summary>
+    /// <param name="powerUp">The PowerUp to attach.</param>
+    public void AttachPowerUp(PowerUp powerUp)
+    {
+        this.powerUp = powerUp;
+        health += powerUp.Health;
     }
 }
