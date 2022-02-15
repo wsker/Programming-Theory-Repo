@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private ProjectileSpawner projectileSpawner;
     private UIMainGame uiMainGame;
     public AudioSource audioSource;
+    private Renderer playerRenderer;
 
     // Player attributes
     /// <summary>
@@ -44,6 +45,15 @@ public class PlayerController : MonoBehaviour
     public AudioClip gettingHitSound;
     public GameObject deathParticles;
 
+    /// <summary>
+    /// How long the player is invulnerable after a hit.
+    /// </summary>
+    private float invulnerableAfterHitTime = 1.5f;
+    /// <summary>
+    /// Flag if the player is currently invulnerable.
+    /// </summary>
+    private bool isInvulnerable = false;
+
     // Input definitions
     private readonly KeyCode keyMoveUp = KeyCode.W;
     private readonly KeyCode keyMoveLeft = KeyCode.A;
@@ -60,6 +70,7 @@ public class PlayerController : MonoBehaviour
     {
         rbPlayer = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
+        playerRenderer = GetComponent<Renderer>();
         projectileSpawner = GameObject.Find("ProjectileSpawner").GetComponent<ProjectileSpawner>();
         uiMainGame = GameObject.Find("Canvas").GetComponent<UIMainGame>();
         uiMainGame.UpdateHealth(health);
@@ -103,13 +114,38 @@ public class PlayerController : MonoBehaviour
 
     public void Hit(int damage)
     {
-        health -= damage;
-        audioSource.PlayOneShot(gettingHitSound);
-        uiMainGame.UpdateHealth(health);
-        if (health <= 0)
+        if(!isInvulnerable)
         {
-            PlayerDie();
+            health -= damage;
+            audioSource.PlayOneShot(gettingHitSound);
+            uiMainGame.UpdateHealth(health);
+            if (health <= 0)
+            {
+                PlayerDie();
+            }
+            else
+            {
+                StartCoroutine(InvulnerabilityState(invulnerableAfterHitTime));
+            }
         }
+    }
+
+    /// <summary>
+    /// Manages the time the player is invulnerable.
+    /// </summary>
+    /// <param name="time">For how long the invulnerability lasts.</param>
+    /// <returns></returns>
+    IEnumerator InvulnerabilityState(float time)
+    {
+        isInvulnerable = true;
+        float blinkFrequency = 0.15f;
+        for(float i = 0; i < time; i += blinkFrequency)
+        {
+            playerRenderer.enabled = !playerRenderer.enabled;
+            yield return new WaitForSeconds(Mathf.Min(blinkFrequency, time - i));
+        }
+        playerRenderer.enabled = true;
+        isInvulnerable = false;
     }
 
     protected void PlayerDie()
