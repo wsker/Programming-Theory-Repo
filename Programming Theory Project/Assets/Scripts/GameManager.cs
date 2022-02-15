@@ -9,12 +9,21 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private EnemySpawner enemySpawner;
     /// <summary>
+    /// Reference to the PowerUp Spawner.
+    /// </summary>
+    private PowerUpSpawner powerUpSpawner;
+    /// <summary>
     /// Container in hierarchy to collect enemies in
     /// </summary>
     private GameObject enemyContainer;
 
     private UIMainGame uiMainGame;
     private float waveIntroDuration = 1.0f;
+    /// <summary>
+    /// How the number of power ups spawned scale up per wave.
+    /// Every powerUpWaveScale waves an additional power up is spawned.
+    /// </summary>
+    private int powerUpWaveScale = 3;
 
     private bool pauseSpawning = false;
 
@@ -32,6 +41,7 @@ public class GameManager : MonoBehaviour
         
         enemyContainer = GameObject.Find("Enemies");
         enemySpawner = GetComponent<EnemySpawner>();
+        powerUpSpawner = GetComponent<PowerUpSpawner>();
         StartWave();
     }
 
@@ -57,6 +67,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(waveIntroDuration);
         uiMainGame.StopWaveIntro();
         SpawnWave(wave);
+        SpawnPowerUps(wave);
         pauseSpawning = false;
     }
 
@@ -68,5 +79,17 @@ public class GameManager : MonoBehaviour
         }
         WaveManager.Instance?.ReportReachedWave(wave);
         Debug.Log("Spawned wave " + wave);
+    }
+
+    /// <summary>
+    /// Spawns power ups based on the current wave.
+    /// </summary>
+    /// <param name="wave"></param>
+    protected void SpawnPowerUps(int wave)
+    {
+        for(int i = 0; i < 1 + (wave / powerUpWaveScale); i++)
+        {
+            powerUpSpawner.SpawnRandomPowerUp();
+        }
     }
 }

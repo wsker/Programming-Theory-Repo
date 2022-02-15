@@ -215,6 +215,7 @@ GameObject:
   - component: {fileID: 155247034}
   - component: {fileID: 155247033}
   - component: {fileID: 155247032}
+  - component: {fileID: 155247035}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -235,7 +236,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyList:
+  - {fileID: 8212272099244526649, guid: cd91d17f48e22e94a80d0aceeebefe43, type: 3}
   - {fileID: 8212272099244526649, guid: de3d378ba9b2c4a41a7e8b7c464d3bad, type: 3}
+  - {fileID: 8212272099244526649, guid: 7d4ec25116ee80042a7e489815934975, type: 3}
+  - {fileID: 8212272099244526649, guid: 4eac3a603ae5e7e4d832dfc2b7aee623, type: 3}
 --- !u!114 &155247033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,6 +266,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &155247035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 155247031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 593145047ee05034bb384c62fd9455a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerUps:
+  - {fileID: 3189918784425960190, guid: 8f3a7542ae99c15478b9534df9102677, type: 3}
+  - {fileID: -5896376087203645350, guid: b619b6599f63caa4aa392e19d495a966, type: 3}
+  - {fileID: -1154498845501734920, guid: eeaa23defffd6ff4b8269befb7513c27, type: 3}
+  - {fileID: -3528965804951872673, guid: 519f7f4b47eb7ac42bb79e2caa6668b7, type: 3}
+  - {fileID: -6131198957162868461, guid: 22c82e2a5578aa04085cea0efab1c559, type: 3}
 --- !u!1 &170242923
 GameObject:
   m_ObjectHideFlags: 0
@@ -2301,7 +2323,8 @@ MonoBehaviour:
   movementSpeed: 5
   damage: 1
   attackSpeed: 0.75
-  shotType: 2
+  shotType: 0
+  powerUp: {fileID: 0}
 --- !u!1 &1745797983
 GameObject:
   m_ObjectHideFlags: 0

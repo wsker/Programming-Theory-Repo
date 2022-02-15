@@ -9,20 +9,20 @@ public class PowerUp : MonoBehaviour
     /// </summary>
     private Renderer rend;
     // Power Up values
-    public int Health { get; private set; }
-    public int Damage { get; private set; }
-    public float AttackSpeed { get; private set; }
-    public ProjectileSpawner.ShotType ShotType { get; private set; }
+    public int Health { get; protected set; }
+    public int Damage { get; protected set; }
+    public float AttackSpeed { get; protected set; }
+    public ProjectileSpawner.ShotType ShotType { get; protected set; }
     
     // Internal logic
     /// <summary>
     /// Time after which the PowerUp is destroyed.
     /// </summary>
-    public float LifeTime { get; private set; }
+    public float LifeTime { get; protected set; }
     /// <summary>
     /// How long the PowerUp is active after it is picked up.
     /// </summary>
-    public float LifeTimeAfterPickup { get; private set; }
+    public float LifeTimeAfterPickup { get; protected set; }
     /// <summary>
     /// Flag if the PowerUp was already picked up.
     /// </summary>

@@ -75,8 +75,8 @@ public class PlayerController : MonoBehaviour
                 // if player fires:
                 // apply power up to projectile
                 ProjectileSpawner.ShotType st = (powerUp == null) ? shotType : powerUp.ShotType;
-                int d = (damage + powerUp?.Damage ?? 0);
-                float ap = (attackSpeed - powerUp?.AttackSpeed ?? 0);
+                int d = (damage + (powerUp?.Damage ?? 0));
+                float ap = (attackSpeed - (powerUp?.AttackSpeed ?? 0));
                 // create projectile
                 projectileSpawner.SpawnProjectile(st, transform.position, new Vector3(xFire, 0, zFire), ProjectileMovement.Source.Player, d);
                 attackPause = ap;  // initiate pause between attacks
