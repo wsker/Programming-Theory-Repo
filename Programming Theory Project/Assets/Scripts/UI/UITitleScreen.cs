@@ -41,6 +41,7 @@ public class UITitleScreen : MonoBehaviour
             options.Add(new TMP_Dropdown.OptionData("Wave " + (i+1)));
         }
         dropdown.AddOptions(options);
+        dropdown.value = (WaveManager.Instance?.waves.selected ?? 1) - 1;
     }
 
     /// <summary>
