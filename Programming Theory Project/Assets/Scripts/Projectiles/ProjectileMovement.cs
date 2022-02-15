@@ -38,6 +38,8 @@ public class ProjectileMovement : MonoBehaviour
     /// </summary>
     private Source projectileSource;
 
+    public GameObject wallParticles;
+
     /// <summary>
     /// Used to initialize the projectile after creation.
     /// </summary>
@@ -72,6 +74,10 @@ public class ProjectileMovement : MonoBehaviour
         if(go.CompareTag("Wall"))
         {
             // always destroyed when hitting a wall
+            float angle = 180 + Mathf.Atan2(direction.z, direction.x) * Mathf.Rad2Deg;
+            Quaternion rotation = Quaternion.Euler(0, 0, angle);
+            Instantiate(wallParticles, transform.position, rotation);
+            
             Destroy(gameObject);
         }
         else if(projectileSource != Source.Enemy && go.CompareTag("Enemy"))

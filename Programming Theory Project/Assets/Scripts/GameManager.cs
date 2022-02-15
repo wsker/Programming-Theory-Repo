@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     private float additionalTimePerWave = 2.5f;
     private float timer = 0;
 
-    private bool pauseSpawning = false;
+    private bool pauseSpawning = true;
     private bool isGameRunning = false;
 
     private AudioSource oneShotPlayer;
