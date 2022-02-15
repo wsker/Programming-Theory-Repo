@@ -2520,7 +2520,7 @@ MonoBehaviour:
   health: 6
   movementSpeed: 5
   damage: 1
-  attackSpeed: 0.75
+  attackSpeed: 0.3
   shotType: 0
   powerUp: {fileID: 0}
   powerUpPickUpSound: {fileID: 8300000, guid: 0bd312f6d6da61c4b96d978f85e00cbc, type: 3}
