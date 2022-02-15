@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyRager : EnemyMovement
+public class EnemyRager : EnemyMovement // INHERITANCE
 {
     /// <summary>
     /// How long the enemy moves.

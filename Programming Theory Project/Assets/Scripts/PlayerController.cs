@@ -112,7 +112,7 @@ public class PlayerController : MonoBehaviour
         rbPlayer.velocity = new Vector3(xMove * movementSpeed, 0, zMove * movementSpeed);
     }
 
-    public void Hit(int damage)
+    public void Hit(int damage) // ABSTRACTION
     {
         if(!isInvulnerable)
         {

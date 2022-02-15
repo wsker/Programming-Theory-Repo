@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyZombie : EnemyMovement
+public class EnemyZombie : EnemyMovement    // INHERITANCE
 {
     /// <summary>
     /// Range on the x axis to find a random position for an enemy.

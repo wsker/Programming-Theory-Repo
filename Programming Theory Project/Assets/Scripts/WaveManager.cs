@@ -48,7 +48,7 @@ public class WaveManager : MonoBehaviour
     /// <summary>
     /// Save the persistent wave data to a file.
     /// </summary>
-    public void SaveWaveData()
+    public void SaveWaveData()  // ABSTRACTION
     {
         if (waves != null)
         {

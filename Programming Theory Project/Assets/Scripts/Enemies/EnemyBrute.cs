@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBrute : EnemyMovement
+public class EnemyBrute : EnemyMovement // INHERITANCE
 {
     /// <summary>
     /// How long the enemy moves (chases the player).
@@ -25,7 +25,7 @@ public class EnemyBrute : EnemyMovement
     /// <summary>
     /// Initializies all values of the enemy during Start().
     /// </summary>
-    override protected void InitializeEnemy()
+    override protected void InitializeEnemy()   // POLYMORPHISM
     {
         enemyName = "Brute";
         health = 6;
@@ -41,7 +41,7 @@ public class EnemyBrute : EnemyMovement
     /// <summary>
     /// Chases the player in regular intervalls, resting in between chases.
     /// </summary>
-    override protected void SetMovement()
+    override protected void SetMovement()   // POLYMORPHISM
     {
         if(isMoving)
         {
@@ -72,7 +72,7 @@ public class EnemyBrute : EnemyMovement
     /// <summary>
     /// This enemy has not direct attack, only melee damage.
     /// </summary>
-    override protected void PerformAttack()
+    override protected void PerformAttack() // POLYMORPHISM
     {
         attackPause = attackSpeed;
     }

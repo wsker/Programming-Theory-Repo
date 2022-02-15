@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// The current wave.
     /// </summary>
-    public int Wave { get; private set; }
+    public int Wave { get; private set; }   // ENCAPSULATION
 
     // Start is called before the first frame update
     void Start()

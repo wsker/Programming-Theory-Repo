@@ -36,7 +36,7 @@ public class EnemySpawner : MonoBehaviour
     /// Spawns the specified enemy with a random position.
     /// </summary>
     /// <param name="index">Index of the enemy in the list of available enemies.</param>
-    public void SpawnEnemy(int index)
+    public void SpawnEnemy(int index)   // ABSTRACTION
     {
         // check if the enemy-index (and any enemies) exist
         if(enemyList.Count == 0)
@@ -56,7 +56,7 @@ public class EnemySpawner : MonoBehaviour
         inst.transform.position = GetRandomPosition();
     }
 
-    public void SpawnRandomEnemy()
+    public void SpawnRandomEnemy()  // ABSTRACTION
     {
         int index = Random.Range(0, enemyList.Count);
         SpawnEnemy(index);

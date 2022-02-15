@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySniper : EnemyMovement
+public class EnemySniper : EnemyMovement    // INHERITANCE
 {
     /// <summary>
     /// The minimum distance between enemy and player (causes flee state).

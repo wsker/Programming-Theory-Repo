@@ -35,7 +35,7 @@ public class ProjectileSpawner : MonoBehaviour
     /// <param name="direction">The forward direction of the projectile.</param>
     /// <param name="source">Who shot the projectile.</param>
     /// <param name="damage">How much damage the projectile inflicts.</param>
-    public void SpawnProjectile(ShotType shotType, Vector3 position, Vector3 direction, ProjectileMovement.Source source, int damage)
+    public void SpawnProjectile(ShotType shotType, Vector3 position, Vector3 direction, ProjectileMovement.Source source, int damage)   // ABSTRACTION
     {
         // always spawn shot in forward direction
         InstantiateProjectile(projectilePrefab, position, direction, source, damage);
