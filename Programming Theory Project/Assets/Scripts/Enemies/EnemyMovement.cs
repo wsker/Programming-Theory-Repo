@@ -19,6 +19,7 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] protected ProjectileSpawner.ShotType shotType = ProjectileSpawner.ShotType.Single;
 
     public AudioClip destroySound;
+    public GameObject deathParticles;
 
     // internal variables
     /// <summary>
@@ -102,6 +103,7 @@ public class EnemyMovement : MonoBehaviour
     /// </summary>
     protected void EnemyDie()
     {
+        Instantiate(deathParticles, transform.position, deathParticles.transform.rotation);
         player.GetComponent<PlayerController>().audioSource.PlayOneShot(destroySound);
         Destroy(gameObject);
     }

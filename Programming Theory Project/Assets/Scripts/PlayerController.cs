@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// Attack speed of the player, as seconds/attack (so lower values mean more attacks/s).
     /// </summary>
-    [SerializeField] private float attackSpeed = 0.75f;
+    [SerializeField] private float attackSpeed = 0.5f;
     /// <summary>
     /// Internal variable to track the pause between attacks.
     /// </summary>
@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
 
     public AudioClip powerUpPickUpSound;
     public AudioClip gettingHitSound;
+    public GameObject deathParticles;
 
     // Input definitions
     private readonly KeyCode keyMoveUp = KeyCode.W;
@@ -113,6 +114,7 @@ public class PlayerController : MonoBehaviour
 
     protected void PlayerDie()
     {
+        Instantiate(deathParticles, transform.position, deathParticles.transform.rotation);
         Destroy(gameObject);
     }
 
