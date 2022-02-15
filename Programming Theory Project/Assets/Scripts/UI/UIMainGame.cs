@@ -26,21 +26,6 @@ public class UIMainGame : MonoBehaviour
         timerText = gameplay.transform.Find("Timer Text").GetComponent<TextMeshProUGUI>();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        // initialize visibility
-        gameOver.SetActive(false);
-        gameplay.SetActive(true);
-        waveIntro.SetActive(false);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     // Wave Intro
     public void StartWaveIntro(int wave)
     {
@@ -57,12 +42,21 @@ public class UIMainGame : MonoBehaviour
 
     public void UpdateHealth(int health)
     {
-        healthText.text = "Health: " + health;
+        healthText.text = "Health: " + Mathf.Max(0, health);
     }
 
     public void UpdateTimer(int timer)
     {
         timerText.text = "Time: " + timer;
+    }
+
+    public void ShowGameOverScreen(int reachedWave, bool timeExpired)
+    {
+        TextMeshProUGUI t1 = gameOver.transform.Find("Reached Wave Text").GetComponent<TextMeshProUGUI>();
+        t1.text = "Reached wave: " + reachedWave;
+        TextMeshProUGUI t2 = gameOver.transform.Find("Killed By Text").GetComponent<TextMeshProUGUI>();
+        t2.text = (timeExpired) ? "Time expired" : "Killed by enemy";
+        gameOver.SetActive(true);
     }
 
     // Button handler

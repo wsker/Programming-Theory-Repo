@@ -16,16 +16,21 @@ public class GameManager : MonoBehaviour
     /// Container in hierarchy to collect enemies in
     /// </summary>
     private GameObject enemyContainer;
+    private GameObject player;
 
     private UIMainGame uiMainGame;
-    private float waveIntroDuration = 1.0f;
+    private float waveIntroDuration = 3.0f;
     /// <summary>
     /// How the number of power ups spawned scale up per wave.
     /// Every powerUpWaveScale waves an additional power up is spawned.
     /// </summary>
     private int powerUpWaveScale = 3;
+    private float timePerWave = 15.0f;
+    private float additionalTimePerWave = 2.5f;
+    private float timer = 0;
 
     private bool pauseSpawning = false;
+    private bool isGameRunning = false;
 
     /// <summary>
     /// The current wave.
@@ -38,7 +43,8 @@ public class GameManager : MonoBehaviour
         uiMainGame = GameObject.Find("Canvas").GetComponent<UIMainGame>();
         // get starting wave
         Wave = WaveManager.Instance?.waves.selected ?? 1;
-        
+
+        player = GameObject.Find("Player");
         enemyContainer = GameObject.Find("Enemies");
         enemySpawner = GetComponent<EnemySpawner>();
         powerUpSpawner = GetComponent<PowerUpSpawner>();
@@ -48,6 +54,16 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(isGameRunning)
+        {
+            timer -= Time.deltaTime;
+            uiMainGame.UpdateTimer((int)Mathf.Ceil(timer));
+            if(timer <= 0 || player == null)
+            {
+                GameOver(player != null);
+            }
+        }
+        
         if(!pauseSpawning && enemyContainer.transform.childCount == 0)
         {
             Wave++;
@@ -58,6 +74,9 @@ public class GameManager : MonoBehaviour
     public void StartWave()
     {
         pauseSpawning = true;
+        isGameRunning = false;
+        timer += timePerWave + ((Wave - 1) * additionalTimePerWave);
+        uiMainGame.UpdateTimer((int)Mathf.Ceil(timer));
         StartCoroutine(WaveIntro(Wave));
     }
 
@@ -69,6 +88,7 @@ public class GameManager : MonoBehaviour
         SpawnWave(wave);
         SpawnPowerUps(wave);
         pauseSpawning = false;
+        isGameRunning = true;
     }
 
     protected void SpawnWave(int wave)
@@ -79,6 +99,14 @@ public class GameManager : MonoBehaviour
         }
         WaveManager.Instance?.ReportReachedWave(wave);
         Debug.Log("Spawned wave " + wave);
+    }
+
+    protected void GameOver(bool timeExpired)
+    {
+        pauseSpawning = true;
+        isGameRunning = false;
+        Destroy(player);
+        uiMainGame.ShowGameOverScreen(Wave, timeExpired);
     }
 
     /// <summary>

@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     // Component references
     private Rigidbody rbPlayer;
     private ProjectileSpawner projectileSpawner;
+    private UIMainGame uiMainGame;
 
     // Player attributes
     /// <summary>
@@ -54,6 +55,8 @@ public class PlayerController : MonoBehaviour
     {
         rbPlayer = GetComponent<Rigidbody>();
         projectileSpawner = GameObject.Find("ProjectileSpawner").GetComponent<ProjectileSpawner>();
+        uiMainGame = GameObject.Find("Canvas").GetComponent<UIMainGame>();
+        uiMainGame.UpdateHealth(health);
     }
 
     // Update is called once per frame
@@ -95,7 +98,8 @@ public class PlayerController : MonoBehaviour
     public void Hit(int damage)
     {
         health -= damage;
-        if (health < 0)
+        uiMainGame.UpdateHealth(health);
+        if (health <= 0)
         {
             PlayerDie();
         }
